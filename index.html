@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fleur（フルール）| 水戸市双葉台のパン屋</title>
+  <meta name="description" content="茨城県水戸市双葉台のパン屋 fleur（フルール）。オーナーが一から手作りする約90種のこだわりパン。自家製カレーパン・タルティーヌなど。水戸双葉台オハナコート1階。">
+  <meta property="og:title" content="fleur（フルール）| 水戸市双葉台のパン屋">
+  <meta property="og:description" content="生地も具材もすべて手作り。口溶けにこだわった約90種のパン。茨城県水戸市双葉台オハナコート。">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f0;
+      --warm-white: #fffdf9;
+      --brown: #5c3d2e;
+      --brown-light: #8b6347;
+      --brown-pale: #d4b896;
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --text: #2c1a0e;
+      --text-light: #6b4c35;
+      --green: #4a5e3a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(250, 246, 240, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gold-light);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--brown);
+    }
+
+    .logo span {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--brown-light);
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      margin-top: -2px;
+    }
+
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--brown-light);
+      transition: color 0.3s;
+    }
+    nav a:hover { color: var(--brown); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(44,26,14,0.15) 0%, rgba(44,26,14,0.6) 100%),
+        url('images/top.HEIC') center/cover no-repeat;
+    }
+
+    /* 画像がない場合のフォールバック背景 */
+    .hero-img-fallback {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #c9a96e 0%, #8b6347 40%, #5c3d2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 5vw 8vh;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      letter-spacing: 0.25em;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+      line-height: 2;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      border: 1px solid var(--gold-light);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      transition: all 0.4s;
+    }
+    .btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--brown);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: rgba(255,255,255,0.4);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.3; transform: scaleY(0.5); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 5vw; }
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      color: var(--brown);
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── CONCEPT ── */
+    .concept {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .concept-img {
+      aspect-ratio: 4/5;
+      background: url('images/showcase-wide.jpg') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .concept-img-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, var(--brown-pale) 0%, var(--brown-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.2em;
+    }
+
+    .concept-img::before {
+      content: '';
+      position: absolute;
+      top: 1.2rem; left: 1.2rem; right: -1.2rem; bottom: -1.2rem;
+      border: 1px solid var(--gold-light);
+      z-index: -1;
+    }
+
+    .concept-text p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+      line-height: 2.2;
+    }
+
+    .concept-text strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--brown);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── BREAD GALLERY ── */
+    .bread-section {
+      background: var(--warm-white);
+    }
+
+    .bread-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .bread-header .divider { margin: 0 auto 2.5rem; }
+
+    .bread-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .bread-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .bread-card:first-child {
+      grid-row: span 2;
+    }
+
+    .bread-card-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+      background: linear-gradient(135deg, var(--gold-light), var(--brown-pale));
+    }
+
+    .bread-card:first-child .bread-card-img {
+      aspect-ratio: auto;
+      height: 100%;
+    }
+
+    .bread-card:hover .bread-card-img { transform: scale(1.05); }
+
+    .bread-card-img-ph {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--brown-light);
+      letter-spacing: 0.1em;
+    }
+
+    .bread-card-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.5rem 1.5rem;
+      background: linear-gradient(to top, rgba(44,26,14,0.85) 0%, transparent 100%);
+      color: #fff;
+      transform: translateY(20%);
+      transition: transform 0.4s ease;
+    }
+
+    .bread-card:hover .bread-card-overlay { transform: translateY(0); }
+
+    .bread-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .bread-card-desc {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+
+    .bread-card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      margin-top: 0.5rem;
+    }
+
+    /* ── STORY ── */
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .story-text p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      margin-bottom: 1.4rem;
+      line-height: 2.2;
+    }
+
+    .story-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--brown);
+      line-height: 1.8;
+    }
+
+    .story-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    .story-img { background: center/cover no-repeat; }
+
+    .story-img:nth-child(1) { aspect-ratio: 1; background-image: url('images/exterior2.jpg'); }
+    .story-img:nth-child(2) { aspect-ratio: 1; margin-top: 2rem; background-image: url('images/pan-rack.jpg'); }
+    .story-img:nth-child(3) { aspect-ratio: 2/1; grid-column: span 2; background-image: url('images/showcase2.jpg'); background-position: center; }
+
+    .story-img-ph {
+      width: 100%;
+      height: 100%;
+      min-height: 150px;
+      background: linear-gradient(135deg, var(--gold-light), var(--brown-pale));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--brown-light);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FEATURE POINTS ── */
+    .features {
+      background: var(--brown);
+      color: #fff;
+    }
+
+    .features .section-title { color: var(--gold-light); }
+    .features .section-label { color: var(--brown-pale); }
+
+    .features-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+    .features-header .divider { background: var(--gold); margin: 0 auto 2.5rem; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-item { text-align: center; }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .feature-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .feature-item p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 2;
+    }
+
+    /* ── INSTAGRAM STRIP ── */
+    .instagram-section {
+      background: var(--warm-white);
+      text-align: center;
+    }
+
+    .insta-header { margin-bottom: 3rem; }
+    .insta-header .divider { margin: 0 auto 2rem; }
+
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+    }
+
+    .insta-item {
+      aspect-ratio: 1;
+      background: var(--gold-light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .insta-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .insta-item:hover img { transform: scale(1.08); }
+
+    .insta-item-ph {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--brown-pale) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--brown-light);
+    }
+
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--brown);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .insta-link:hover { color: var(--gold); }
+
+    /* ── ACCESS ── */
+    .access-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .access-info { }
+
+    .access-info dl {
+      display: grid;
+      grid-template-columns: 5em 1fr;
+      gap: 0.8rem 1.5rem;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .access-info dt {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      padding-top: 0.1em;
+    }
+
+    .access-info dd { color: var(--text-light); line-height: 1.8; }
+
+    .access-note {
+      background: var(--gold-light);
+      border-left: 3px solid var(--gold);
+      padding: 1.2rem 1.5rem;
+      font-size: 0.82rem;
+      color: var(--brown);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .access-note strong { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--gold-light);
+      overflow: hidden;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      color: rgba(255,255,255,0.6);
+      padding: 4rem 5vw 2.5rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--brown-pale);
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-sns {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .footer-sns a {
+      text-decoration: none;
+      color: var(--brown-pale);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      transition: color 0.3s;
+    }
+    .footer-sns a:hover { color: var(--gold-light); }
+
+    .footer-copy {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── BADGES ── */
+    .bread-badge {
+      position: absolute;
+      top: 1.3rem;
+      left: 0;
+      z-index: 3;
+      padding: 0.55rem 1.8rem 0.55rem 1rem;
+      font-size: 0.82rem;
+      font-weight: bold;
+      letter-spacing: 0.18em;
+      font-family: 'Noto Serif JP', serif;
+      pointer-events: none;
+      box-shadow: 3px 4px 14px rgba(0,0,0,0.45);
+      clip-path: polygon(0 0, 100% 0, 88% 50%, 100% 100%, 0 100%);
+    }
+    .badge-osusume { background: #d4890a; color: #fff; }
+    .badge-new { background: var(--green); color: #fff; }
+
+    /* ── FEATURES PHOTO ── */
+    .feature-photo {
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: center/cover no-repeat;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── SNS LINKS ── */
+    .sns-links {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .sns-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--brown-light);
+      transition: color 0.3s, transform 0.25s;
+    }
+    .sns-btn:hover { color: var(--gold); transform: translateY(-4px); }
+    .sns-btn svg { width: 36px; height: 36px; }
+    .sns-btn span { font-size: 0.68rem; letter-spacing: 0.2em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
+      nav { display: none; }
+
+      section { padding: 5rem 5vw; }
+
+      .concept,
+      .story,
+      .access-section {
+        grid-template-columns: 1fr;
+      }
+
+      .concept-img { aspect-ratio: 4/3; }
+      .concept-img::before { display: none; }
+
+      .bread-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .bread-card:first-child { grid-row: span 1; }
+
+      .features-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .insta-grid { grid-template-columns: repeat(3, 1fr); }
+
+      .story-imgs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="images/logo.jpg" alt="fleur" style="height:54px;width:54px;border-radius:50%;object-fit:cover;display:block;">
+    <span style="display:block;font-size:0.6rem;letter-spacing:0.3em;color:#8b6347;font-family:'Noto Serif JP',serif;font-weight:300;margin-top:4px;text-align:center;">BOULANGERIE — MITO</span>
+  </div>
+  <nav>
+    <a href="#concept">CONCEPT</a>
+    <a href="#bread">BREAD</a>
+    <a href="#story">STORY</a>
+    <a href="#access">ACCESS</a>
+  </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Boulangerie in Mito, Ibaraki</p>
+    <h1>口溶けに、<br><em>花が咲く。</em></h1>
+    <p class="hero-sub">
+      水戸市双葉台の小さなパン屋 fleur（フルール）。<br>
+      生地も具材も、すべてオーナーが手から生まれる約90種。<br>
+      毎日10時、焼きたての香りとともに扉を開きます。
+    </p>
+    <a href="#bread" class="btn">BREAD MENU</a>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="concept">
+    <div class="concept-img"></div>
+    <div class="concept-text">
+      <p class="section-label">— Our Concept</p>
+      <h2 class="section-title">隠れ家だから、<br>出会えた味がある。</h2>
+      <div class="divider"></div>
+      <p>
+        オハナコートの一角、少しだけ奥まった場所に fleur はあります。
+        看板もそう大きくはなく、はじめての方には「ここ？」と思われることも。
+      </p>
+      <p>
+        でも一歩踏み込んだとき、ふわりと広がる焼きたての香りが
+        すべてを教えてくれます。
+      </p>
+      <p>
+        オーナー小林智光が毎日仕込む生地と手作りの具材。
+        近隣の青果店から届く地元野菜。
+        「口溶けのよさ」を何より大切にした、ここだけのパンたちが
+        あなたを待っています。
+      </p>
+      <strong>水戸市双葉台のコミュニティと共に、2022年開業。</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- BREAD -->
+<section id="bread" class="bread-section">
+  <div class="bread-header">
+    <p class="section-label">— Signature Breads</p>
+    <h2 class="section-title">食べてほしい、<br>看板パンたち。</h2>
+    <div class="divider"></div>
+    <p style="font-size:0.85rem;color:var(--text-light);line-height:2;">
+      約90種のラインナップは毎日少しずつ変わります。<br>
+      売り切れ次第終了なので、お早めに。
+    </p>
+  </div>
+
+  <div class="bread-grid" id="bread-grid"></div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-header">
+    <p class="section-label">— Why fleur</p>
+    <h2 class="section-title">fleur が選ばれる<br>3つの理由</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-photo" style="background-image:url('images/news2.jpg');"></div>
+      <h3>地元野菜を使った<br>手作りの具材</h3>
+      <p>
+        近所の青果店「鹿志村青果」から仕入れた地元産野菜を使用。
+        具材はすべて前日から仕込む完全手作り。
+        その日その日の味に妥協はありません。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-photo" style="background-image:url('images/pan-sugar.jpg');"></div>
+      <h3>口溶けにこだわった<br>生地づくり</h3>
+      <p>
+        「口溶けのよさを第一に」をポリシーに、
+        オーナー小林が毎朝丁寧に仕込む生地。
+        柔らかく、食べやすく、くせになる食感。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-photo" style="background-image:url('images/interior.jpg');"></div>
+      <h3>オーナー手作りの<br>温かな空間</h3>
+      <p>
+        元倉庫をオーナー自身が改装した店内。
+        廃材で作ったテーブルや床板が醸し出すぬくもりが、
+        はじめての方も「また来たい」と感じさせます。
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- STORY -->
+<section id="story" style="background:var(--cream);">
+  <div class="story">
+    <div class="story-text">
+      <p class="section-label">— Our Story</p>
+      <h2 class="section-title">このパンに、<br>辿り着くまで。</h2>
+      <div class="divider"></div>
+      <div class="story-quote">
+        「口溶けのよさを第一に、<br>毎日焼いています。」
+      </div>
+      <p>
+        長野県出身のオーナーシェフ・小林智光は、2022年に水戸市双葉台にfleurを開きました。
+        1970年代からの住宅街に建つ複合施設「オハナコート」の一角に、自分の手で店を作りました。
+      </p>
+      <p>
+        「近くに住む方々に、毎日食べたいパンを届けたい。」
+        その思いから生まれたのが、柔らかく口溶けのよいパンたち。
+        パンが苦手な方も、年配の方も「食べやすい」と感じてもらえるよう、
+        生地の仕込みから具材の選定まで、すべてを丁寧に行っています。
+      </p>
+      <p>
+        開店当初のオーブントラブルをきっかけに誕生した「自家製カレーパン」は、
+        改良を重ね今では看板商品に。失敗も糧にする、小さな挑戦の積み重ねが fleur の味です。
+      </p>
+    </div>
+    <div class="story-imgs">
+      <div class="story-img"></div>
+      <div class="story-img"></div>
+      <div class="story-img"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SNS -->
+<section class="instagram-section">
+  <div class="insta-header">
+    <p class="section-label">— SNS</p>
+    <h2 class="section-title">毎日更新中</h2>
+    <div class="divider"></div>
+    <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:2rem;">
+      その日のパンやイベント情報はSNSでチェック！フォローお待ちしています。
+    </p>
+  </div>
+  <div class="insta-grid">
+    <div class="insta-item"><img src="images/pan-sugar.jpg" alt="fleur パン" loading="lazy"></div>
+    <div class="insta-item"><img src="images/showcase2.jpg" alt="fleur ショーケース" loading="lazy"></div>
+    <div class="insta-item"><img src="images/pan-rack.jpg" alt="fleur 焼きたてパン" loading="lazy"></div>
+    <div class="insta-item"><img src="images/pan-almond.jpg" alt="fleur アーモンドパン" loading="lazy"></div>
+    <div class="insta-item"><img src="images/interior.jpg" alt="fleur 店内" loading="lazy"></div>
+  </div>
+  <div class="sns-links" id="sns-links"></div>
+</section>
+
+
+<!-- ACCESS -->
+<section id="access">
+  <div class="access-section">
+    <div class="access-info">
+      <p class="section-label">— Access</p>
+      <h2 class="section-title">お店への<br>行き方</h2>
+      <div class="divider"></div>
+
+      <div class="access-note">
+        <strong>～ アクセス方法 ～</strong>
+        <strong style="display:block;margin-top:0.6rem;">🅿️ 駐車場は？</strong>
+        ふたば並木通りの双葉台駐在所の向かい側から建物の軒下に入り「6番」の駐車場に停めてください。<br>
+        <span style="font-size:0.78rem;color:var(--brown);">※ 他の番号は駐車禁止です。</span>
+        <strong style="display:block;margin-top:0.8rem;">🚪 お店の入口はどこ？</strong>
+        入口は公園側です。徒歩で双葉台郵便局の向かい側から回り込むように入って行くとお店の看板がある入口に辿り着きます。
+      </div>
+      <div style="margin-bottom:2rem;">
+        <img src="images/blog7.jpg" alt="fleur アクセス地図" style="width:100%;border:1px solid var(--gold-light);">
+      </div>
+
+      <dl>
+        <dt>店名</dt>
+        <dd>fleur（フルール）</dd>
+
+        <dt>住所</dt>
+        <dd>茨城県水戸市双葉台 2-1-1<br>オハナコート 1階</dd>
+
+        <dt>営業時間</dt>
+        <dd>10:00〜17:00<br>（パンがなくなり次第終了）</dd>
+
+        <dt>定休日</dt>
+        <dd>木曜日・第3水曜日</dd>
+
+        <dt>SNS</dt>
+        <dd id="access-sns-links" style="display:flex;flex-wrap:wrap;gap:0.4rem 1.2rem;line-height:2;"></dd>
+      </dl>
+
+      <a href="https://maps.google.com/?q=茨城県水戸市双葉台2-1-1" target="_blank" rel="noopener" class="btn" style="border-color:var(--brown);color:var(--brown);">
+        Google Map で開く
+      </a>
+    </div>
+
+    <div class="map-wrapper">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3228!2d140.43!3d36.36!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s%E8%8C%A8%E5%9F%8E%E7%9C%8C%E6%B0%B4%E6%88%B8%E5%B8%82%E5%8F%8C%E8%91%89%E5%8F%B02-1-1!5e0!3m2!1sja!2sjp!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="fleur 地図">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="images/logo.jpg" alt="fleur" style="height:72px;width:72px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 0.4rem;">
+  </div>
+  <div class="footer-tagline">BOULANGERIE — MITO, IBARAKI</div>
+  <div class="footer-sns" id="footer-sns-links"></div>
+  <p class="footer-copy">© 2024 fleur All rights reserved.</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  var SNS_ICONS = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>',
+    x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    threads: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.068c0-3.853 1.023-6.904 3.039-9.066C6.53 1.004 9.228 0 12.739 0c3.297 0 5.807.884 7.459 2.627 1.553 1.636 2.316 3.907 2.302 6.751v.948c0 2.82-1.172 4.306-2.869 4.289-1.066-.013-1.857-.451-2.29-1.273-.57 1.022-1.517 1.585-2.794 1.585-2.508 0-4.166-1.97-4.166-4.897 0-2.939 1.72-4.897 4.271-4.897 1.015 0 1.886.306 2.525.876l.053-.598h2.099v6.118c0 .963.477 1.547 1.275 1.547.766 0 1.566-.767 1.566-2.974v-.948c0-2.491-.61-4.411-1.816-5.706-1.306-1.402-3.372-2.113-6.144-2.113-2.979 0-5.265.831-6.795 2.471-1.614 1.73-2.432 4.348-2.432 7.784 0 3.121.732 5.637 2.176 7.474 1.529 1.944 3.852 2.932 6.905 2.952h.007c2.285 0 4.081-.519 5.334-1.544l1.373 1.653C17.13 23.371 14.877 24 12.186 24zM12.94 7.117c-1.391 0-2.267 1.025-2.267 2.676s.877 2.676 2.267 2.676c1.384 0 2.267-1.025 2.267-2.676s-.883-2.676-2.267-2.676z"/></svg>',
+    facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>'
+  };
+
+  // Bread cards
+  (function () {
+    var grid = document.getElementById('bread-grid');
+    FLEUR_BREADS.forEach(function (bread, i) {
+      var card = document.createElement('div');
+      card.className = 'bread-card';
+      var imgStyle = i === 0
+        ? "height:100%;min-height:450px;background:url('" + bread.image + "') center/cover no-repeat;"
+        : "background:url('" + bread.image + "') center/cover no-repeat;";
+      var badgeHtml = '';
+      if (bread.badge === 'おすすめ') {
+        badgeHtml = '<div class="bread-badge badge-osusume">★ おすすめ</div>';
+      } else if (bread.badge === '新商品') {
+        badgeHtml = '<div class="bread-badge badge-new">✦ 新商品</div>';
+      }
+      var priceHtml = bread.price ? '<div class="bread-card-price">' + bread.price + '</div>' : '';
+      var nameHtml = bread.name.replace(/\n/g, '<br>');
+      card.innerHTML =
+        badgeHtml +
+        '<div class="bread-card-img" style="' + imgStyle + '"></div>' +
+        '<div class="bread-card-overlay">' +
+          '<div class="bread-card-name">' + nameHtml + '</div>' +
+          '<div class="bread-card-desc">' + bread.desc + '</div>' +
+          priceHtml +
+        '</div>';
+      grid.appendChild(card);
+    });
+  })();
+
+  // SNS helper
+  function renderSns(containerId, opts) {
+    var el = document.getElementById(containerId);
+    if (!el || typeof FLEUR_SNS === 'undefined') return;
+    FLEUR_SNS.forEach(function (sns) {
+      if (!sns.active) return;
+      var a = document.createElement('a');
+      a.href = sns.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      if (opts && opts.textOnly) {
+        a.style.cssText = 'color:var(--brown-light);font-size:0.82rem;text-decoration:none;';
+        a.textContent = sns.name;
+      } else {
+        a.className = 'sns-btn';
+        if (opts && opts.color) a.style.color = opts.color;
+        a.innerHTML = (SNS_ICONS[sns.icon] || '') + '<span>' + sns.name + '</span>';
+      }
+      el.appendChild(a);
+    });
+  }
+
+  renderSns('sns-links');
+  renderSns('footer-sns-links', { color: 'var(--brown-pale)' });
+  renderSns('access-sns-links', { textOnly: true });
+</script>
+</body>
+</html>
