@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fleur サイト オーナーズガイド</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf6f0;
+      --brown: #5c3d2e;
+      --brown-light: #8b6347;
+      --gold: #c9a96e;
+      --gold-light: #f0e6d0;
+      --text: #2c1a0e;
+      --text-light: #5a4030;
+      --green: #3a6b3a;
+      --green-bg: #f0f7f0;
+      --red: #c0392b;
+      --red-bg: #fdf2f0;
+      --blue: #2563a8;
+      --blue-bg: #eff5fb;
+      --gray: #6b7280;
+      --gray-bg: #f5f5f5;
+      --border: #e0d4c4;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: var(--brown);
+      color: #fff;
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+    .cover-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .cover-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 2.5rem;
+    }
+    .cover h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    .cover-note {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.9;
+    }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+    /* ── TOC ── */
+    .toc {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem 2.5rem;
+      margin: 2.5rem 0;
+    }
+    .toc h2 {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .toc ol { padding-left: 1.5rem; }
+    .toc li { margin: 0.3rem 0; }
+    .toc a { color: var(--brown-light); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── SECTION ── */
+    .section { margin: 3.5rem 0; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--gold);
+    }
+    .section-num {
+      background: var(--brown);
+      color: var(--gold);
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 1.8rem 0 0.8rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--gold);
+    }
+    p { margin-bottom: 0.9rem; color: var(--text-light); font-size: 0.92rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    li { margin: 0.3rem 0; font-size: 0.92rem; color: var(--text-light); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0;
+      font-size: 0.88rem;
+      line-height: 1.9;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .callout.info   { background: var(--blue-bg);  border-left: 4px solid var(--blue);  color: #1a3a5c; }
+    .callout.ok     { background: var(--green-bg); border-left: 4px solid var(--green); color: #1a3a1a; }
+    .callout.warn   { background: var(--red-bg);   border-left: 4px solid var(--red);   color: #5c1a1a; }
+    .callout.note   { background: var(--gold-light); border-left: 4px solid var(--gold); color: var(--text); }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+    th {
+      background: var(--brown);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-light); vertical-align: top; }
+    tr:nth-child(even) td { background: #fdf9f4; }
+
+    /* ── STEPS ── */
+    .steps { list-style: none; padding: 0; margin: 1rem 0; }
+    .steps li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin: 0.8rem 0;
+      color: var(--text-light);
+      font-size: 0.92rem;
+    }
+    .step-num {
+      background: var(--gold);
+      color: var(--brown);
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* ── CANCAN TABLE ── */
+    .can-table { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1.2rem 0; }
+    .can-box {
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+    }
+    .can-box.yes { background: var(--green-bg); border: 1px solid #b6d6b6; }
+    .can-box.no  { background: var(--gray-bg);  border: 1px solid #d0d0d0; }
+    .can-box h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .can-box.yes h4 { color: var(--green); }
+    .can-box.no  h4 { color: var(--gray); }
+    .can-box ul { padding-left: 1.2rem; margin: 0; }
+    .can-box li { font-size: 0.84rem; margin: 0.25rem 0; }
+    .can-box.yes li { color: #1a4a1a; }
+    .can-box.no  li { color: #555; }
+
+    /* ── SCREEN MOCK ── */
+    .screen-mock {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1.2rem 0;
+      font-size: 0.84rem;
+    }
+    .screen-mock-bar {
+      background: #e8e0d4;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--brown-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .screen-mock-bar::before {
+      content: '⬤  ⬤  ⬤';
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--brown-pale, #d4b896);
+    }
+    .screen-mock-body { padding: 1.2rem 1.5rem; color: var(--text-light); line-height: 1.9; }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0.8rem 0;
+      overflow: hidden;
+    }
+    .faq-q {
+      background: #fff;
+      padding: 1rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--brown);
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+    .faq-q::before { content: 'Q'; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+    .faq-a {
+      background: #fdf9f4;
+      padding: 1rem 1.4rem 1rem 3.2rem;
+      font-size: 0.88rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── DOMAIN TABLE ── */
+    .domain-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1.2rem 0; }
+    .domain-col {
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+    }
+    .domain-col.merit { background: var(--green-bg); border: 1px solid #b6d6b6; }
+    .domain-col.demerit { background: var(--red-bg); border: 1px solid #f0b0a0; }
+    .domain-col h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .domain-col.merit h4 { color: var(--green); }
+    .domain-col.demerit h4 { color: var(--red); }
+    .domain-col li { font-size: 0.84rem; margin: 0.3rem 0; }
+
+    /* ── FOOTER ── */
+    .guide-footer {
+      background: var(--brown);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 600px) {
+      .can-table, .domain-compare { grid-template-columns: 1fr; }
+      .cover { padding: 3rem 1.5rem; }
+      .page { padding: 1.5rem 1.2rem 3rem; }
+    }
+    @media print {
+      .cover { break-after: page; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo">fleur</div>
+  <div class="cover-sub">BOULANGERIE — MITO, IBARAKI</div>
+  <h1>サイト オーナーズガイド</h1>
+  <p class="cover-note">
+    このガイドはfleurのウェブサイトをご自身で管理・更新するための手引きです。<br>
+    スマートフォンやパソコンからいつでも閲覧できます。
+  </p>
+</div>
+
+<div class="page">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>— 目次</h2>
+    <ol>
+      <li><a href="#s1">このサイトについて</a></li>
+      <li><a href="#s2">はじめに（初回ログイン）</a></li>
+      <li><a href="#s3">できること・できないこと</a></li>
+      <li><a href="#s4">管理画面の使い方</a></li>
+      <li><a href="#s5">よくある更新手順</a></li>
+      <li><a href="#s6">独自ドメイン設定ガイド</a></li>
+      <li><a href="#s7">よくある質問（FAQ）</a></li>
+      <li><a href="#s8">困ったときの連絡先</a></li>
+    </ol>
+  </div>
+
+
+  <!-- 1. このサイトについて -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>このサイトについて</h2>
+    </div>
+
+    <p>fleurのウェブサイトは、インターネット上でお店のことを紹介するためのページです。パソコンでもスマートフォンでも快適に見られるように作られています。</p>
+
+    <h3>サイトの構成</h3>
+    <table>
+      <tr><th>ページ</th><th>内容</th></tr>
+      <tr><td>トップページ（/）</td><td>お店の紹介・パン一覧・アクセス情報など</td></tr>
+      <tr><td>管理画面（/admin/）</td><td>オーナーがコンテンツを更新する専用画面</td></tr>
+      <tr><td>プライバシーポリシー（/privacy.html）</td><td>個人情報に関する説明ページ</td></tr>
+    </table>
+
+    <h3>使っているサービスと費用</h3>
+    <table>
+      <tr><th>サービス</th><th>役割</th><th>費用</th></tr>
+      <tr><td>Netlify</td><td>サイトを公開するサービス（ホスティング）</td><td>無料</td></tr>
+      <tr><td>GitHub</td><td>サイトのデータを保管する場所</td><td>無料</td></tr>
+      <tr><td>Decap CMS</td><td>管理画面のシステム</td><td>無料</td></tr>
+      <tr><td>独自ドメイン（任意）</td><td>fleur-mito.com などのURL</td><td>年間 約1,500円〜</td></tr>
+    </table>
+
+    <div class="callout note">
+      <div class="callout-title">💡 ポイント</div>
+      ドメインを購入しなければ、毎月・毎年かかる費用は<strong>無料</strong>です。
+    </div>
+  </div>
+
+
+  <!-- 2. はじめに -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>はじめに（初回ログイン）</h2>
+    </div>
+
+    <p>はじめに一度だけ、アカウント登録が必要です。以下の手順で進めてください。</p>
+
+    <h3>ステップ1：招待メールを確認する</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>「<strong>You've been invited to join…</strong>」という件名のメールを探してください（迷惑メールフォルダもご確認ください）</span></li>
+      <li><span class="step-num">2</span><span>メール内の「<strong>Accept the invite</strong>」ボタンをクリックします</span></li>
+      <li><span class="step-num">3</span><span>ブラウザが開くので、パスワードを設定してください（8文字以上）</span></li>
+      <li><span class="step-num">4</span><span>登録が完了します</span></li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 注意</div>
+      招待メールの有効期限は短い場合があります。届いたら早めに登録してください。<br>
+      期限切れの場合は開発者にお知らせください（再送します）。
+    </div>
+
+    <h3>ステップ2：管理画面にアクセスする</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>ブラウザのアドレスバーに以下のURLを入力します：<br><strong>https://unique-paletas-fb45b6.netlify.app/admin/</strong><br>（独自ドメイン設定後は <strong>https://fleur-mito.com/admin/</strong>）</span></li>
+      <li><span class="step-num">2</span><span>「Email」と「Password」を入力してログインします</span></li>
+      <li><span class="step-num">3</span><span>管理画面が表示されます</span></li>
+    </ol>
+
+    <div class="callout info">
+      <div class="callout-title">📌 ブックマーク推奨</div>
+      管理画面のURLをブラウザのブックマーク（お気に入り）に登録しておくと便利です。
+    </div>
+  </div>
+
+
+  <!-- 3. できること・できないこと -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>できること・できないこと</h2>
+    </div>
+
+    <p>管理画面からご自身で更新できる項目と、変更には開発者への依頼が必要な項目をまとめました。</p>
+
+    <div class="can-table">
+      <div class="can-box yes">
+        <h4>✅ 自分でできること</h4>
+        <ul>
+          <li>看板パンの写真を変える</li>
+          <li>看板パンの名前・説明・価格を変える</li>
+          <li>看板パンを追加・削除する</li>
+          <li>「おすすめ」「新商品」バッジをつける</li>
+          <li>ギャラリー写真を差し替える（最大5枚）</li>
+          <li>SNSアカウントのリンクを変える</li>
+          <li>コンセプトセクションの写真を変える</li>
+        </ul>
+      </div>
+      <div class="can-box no">
+        <h4>🔧 開発者への依頼が必要</h4>
+        <ul>
+          <li>営業時間・定休日の変更</li>
+          <li>住所・電話番号の変更</li>
+          <li>サイトのデザイン・レイアウト変更</li>
+          <li>新しいセクションの追加</li>
+          <li>ネットショップ機能の追加</li>
+          <li>ブログ・お知らせ機能の追加</li>
+          <li>フォントや色の変更</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout note">
+      <div class="callout-title">💡 後から追加できる機能</div>
+      ネットショップ（EC）機能やブログ機能は、後から追加することが可能です。ご希望の場合は開発者にご相談ください。
+    </div>
+  </div>
+
+
+  <!-- 4. 管理画面の使い方 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>管理画面の使い方</h2>
+    </div>
+
+    <p>管理画面には3つのメニューがあります。</p>
+
+    <table>
+      <tr><th>メニュー名</th><th>更新できる内容</th><th>更新頻度</th></tr>
+      <tr><td>🥐 看板パン</td><td>パンの写真・名前・説明・価格・バッジ</td><td>商品が変わったとき</td></tr>
+      <tr><td>📸 毎日更新中（写真）</td><td>SNSセクションに並ぶギャラリー写真（最大5枚）</td><td>週1〜月1くらい</td></tr>
+      <tr><td>⚙️ SNS・コンセプト写真</td><td>SNSのリンク先URL・コンセプト写真</td><td>変更時のみ</td></tr>
+    </table>
+
+    <h3>基本的な操作の流れ</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>管理画面にログインする</span></li>
+      <li><span class="step-num">2</span><span>左側のメニューから更新したい項目をクリックする</span></li>
+      <li><span class="step-num">3</span><span>内容を編集する</span></li>
+      <li><span class="step-num">4</span><span>右上の「<strong>保存</strong>」ボタンをクリックする</span></li>
+      <li><span class="step-num">5</span><span>「<strong>公開</strong>」ボタンをクリックすると、サイトに反映されます</span></li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 「保存」だけでは公開されません</div>
+      「保存」はデータを一時保存するだけです。サイトに反映するには必ず「<strong>公開</strong>」を押してください。<br>
+      公開後、サイトに反映されるまで約1〜2分かかる場合があります。
+    </div>
+
+    <h3>写真をアップロードするときのコツ</h3>
+    <ul>
+      <li>使える形式：JPG・PNG・WebP</li>
+      <li>推奨サイズ：横1000px以上（きれいに表示されます）</li>
+      <li>スマートフォンで撮影した写真はそのままアップロードしてOKです</li>
+      <li>ファイル名に日本語が含まれていてもOKです</li>
+    </ul>
+  </div>
+
+
+  <!-- 5. よくある更新手順 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>よくある更新手順</h2>
+    </div>
+
+    <h3>看板パンの写真・説明を変える</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>管理画面で「🥐 看板パン」→「パン商品リスト」をクリック</span></li>
+      <li><span class="step-num">2</span><span>変更したいパンをクリックして開く</span></li>
+      <li><span class="step-num">3</span><span>「写真」欄の画像をクリックして新しい写真を選ぶ（またはドラッグ＆ドロップ）</span></li>
+      <li><span class="step-num">4</span><span>「説明文」「価格」なども必要に応じて変更</span></li>
+      <li><span class="step-num">5</span><span>「保存」→「公開」</span></li>
+    </ol>
+
+    <h3>新しいパンを追加する</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>「🥐 看板パン」→「パン商品リスト」を開く</span></li>
+      <li><span class="step-num">2</span><span>下の方にある「＋ パンを追加」ボタンをクリック</span></li>
+      <li><span class="step-num">3</span><span>商品名・説明文・写真・バッジを入力する</span></li>
+      <li><span class="step-num">4</span><span>「保存」→「公開」</span></li>
+    </ol>
+
+    <div class="callout info">
+      <div class="callout-title">📌 一番上のパンが大きく表示されます</div>
+      リストの一番上にあるパンがトップページで大きなカードとして表示されます。一番アピールしたい商品を上に持ってきましょう。並び替えはドラッグ＆ドロップでできます。
+    </div>
+
+    <h3>パンを削除する</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>「🥐 看板パン」→「パン商品リスト」を開く</span></li>
+      <li><span class="step-num">2</span><span>削除したいパンの横にある「✕」または削除ボタンをクリック</span></li>
+      <li><span class="step-num">3</span><span>「保存」→「公開」</span></li>
+    </ol>
+
+    <h3>ギャラリー写真を差し替える</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>「📸 毎日更新中（写真）」→「ギャラリー写真」を開く</span></li>
+      <li><span class="step-num">2</span><span>変更したい写真をクリックして新しい写真を選ぶ</span></li>
+      <li><span class="step-num">3</span><span>写真は最大5枚まで登録できます（6枚目は追加できません）</span></li>
+      <li><span class="step-num">4</span><span>「保存」→「公開」</span></li>
+    </ol>
+  </div>
+
+
+  <!-- 6. 独自ドメイン -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>独自ドメイン設定ガイド</h2>
+    </div>
+
+    <p>
+      現在のサイトURLは <strong>https://unique-paletas-fb45b6.netlify.app/</strong> です。<br>
+      <strong>https://fleur-mito.com/</strong> のような独自ドメインに変更することができます。
+    </p>
+
+    <h3>メリット・デメリット</h3>
+    <div class="domain-compare">
+      <div class="domain-col merit">
+        <h4>✅ メリット</h4>
+        <ul>
+          <li>URLが短くて覚えやすい</li>
+          <li>「fleur-mito.com」でブランドの一貫性が出る</li>
+          <li>名刺・チラシに掲載しやすい</li>
+          <li>Googleなどの検索で見つかりやすくなる</li>
+          <li>将来メールアドレス（info@fleur-mito.com）も作れる</li>
+        </ul>
+      </div>
+      <div class="domain-col demerit">
+        <h4>⚠️ デメリット・注意点</h4>
+        <ul>
+          <li>年間約1,000〜1,500円の費用がかかる</li>
+          <li>設定に15〜30分ほどかかる</li>
+          <li>反映まで最大24〜48時間かかる場合がある</li>
+          <li>毎年更新しないと失効する</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout note">
+      <div class="callout-title">💡 おすすめの判断基準</div>
+      名刺やチラシにURLを載せる予定がある、または長期的に運営するなら設定することをおすすめします。設定後もサイトの内容や見た目は変わりません。
+    </div>
+
+    <h3>ドメインの購入手順</h3>
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>「<strong>お名前.com</strong>」（https://www.onamae.com）または「<strong>さくらのドメイン</strong>」にアクセスします</span></li>
+      <li><span class="step-num">2</span><span>検索欄に「<strong>fleur-mito</strong>」と入力して検索します</span></li>
+      <li><span class="step-num">3</span><span>「<strong>fleur-mito.com</strong>」が取得可能であることを確認します</span></li>
+      <li><span class="step-num">4</span><span>カートに追加して購入手続きをします（年間約1,500円）</span></li>
+      <li><span class="step-num">5</span><span>購入完了後、次のステップに進みます</span></li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 自動更新設定の確認</div>
+      購入時に「自動更新」をONにしておくと、期限切れで失効するリスクがなくなります。毎年自動で更新されます。
+    </div>
+
+    <h3>Netlifyでのドメイン設定手順</h3>
+    <p>ドメインを購入したら、NetlifyとドメインをつなぐDNS設定を行います。</p>
+
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>ブラウザで <strong>https://app.netlify.com</strong> を開いてログインします<br>（ログイン情報が不明な場合は開発者にお問い合わせください）</span></li>
+      <li><span class="step-num">2</span><span>サイト（fleur）をクリックして開きます</span></li>
+      <li><span class="step-num">3</span><span>上部メニューの「<strong>Domain management</strong>」をクリックします</span></li>
+      <li><span class="step-num">4</span><span>「<strong>Add a domain</strong>」ボタンをクリックします</span></li>
+      <li><span class="step-num">5</span><span>「<strong>fleur-mito.com</strong>」と入力して「Verify」→「Add domain」をクリックします</span></li>
+      <li><span class="step-num">6</span><span>画面に表示される「<strong>Netlify DNS</strong>」または「<strong>外部DNSの設定方法</strong>」の指示に従います<br>（この手順は購入したサービスによって異なります）</span></li>
+    </ol>
+
+    <div class="callout info">
+      <div class="callout-title">📌 DNS設定が難しいと感じたら</div>
+      DNS設定の画面でわからなくなった場合は、スクリーンショットを撮って開発者にお送りください。一緒に対応します。
+    </div>
+
+    <div class="callout ok">
+      <div class="callout-title">✅ 設定完了の確認方法</div>
+      <strong>https://fleur-mito.com/</strong> をブラウザで開いてfleurのサイトが表示されれば完了です。反映まで最長48時間かかる場合がありますが、通常は数時間以内に完了します。
+    </div>
+  </div>
+
+
+  <!-- 7. FAQ -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>よくある質問（FAQ）</h2>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">更新したのにサイトに反映されない</div>
+      <div class="faq-a">
+        「保存」だけではサイトに反映されません。必ず「<strong>公開</strong>」ボタンも押してください。<br>
+        公開後も最大2分ほど時間がかかる場合があります。ブラウザを再読み込み（<strong>Command + R</strong>）してお待ちください。<br>
+        それでも反映されない場合は開発者にご連絡ください。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">パスワードを忘れてしまった</div>
+      <div class="faq-a">
+        管理画面のログイン画面で「<strong>Forgot password?</strong>」をクリックすると、登録メールアドレスにパスワードリセットのメールが送られます。<br>
+        メールが届かない場合は開発者にお知らせください。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">写真がうまくアップロードできない</div>
+      <div class="faq-a">
+        以下をご確認ください：<br>
+        ① ファイル形式がJPG・PNG・WebPであること<br>
+        ② ファイルサイズが10MB以下であること（スマートフォン撮影の写真はほぼ問題ありません）<br>
+        ③ インターネット接続が安定していること<br>
+        解決しない場合は開発者にお問い合わせください。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">管理画面にログインできない</div>
+      <div class="faq-a">
+        ① パスワードが正しいか確認する（「Forgot password?」からリセット可能）<br>
+        ② URLが正しいか確認する（<strong>/admin/</strong> まで入力されているか）<br>
+        ③ ブラウザのキャッシュをクリアして試す<br>
+        それでも解決しない場合は開発者にご連絡ください。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">サイトが表示されなくなった</div>
+      <div class="faq-a">
+        まず別のスマートフォンやパソコンでアクセスしてみてください。それでも表示されない場合は、Netlifyのサービス障害の可能性があります。<br>
+        <strong>開発者にすぐにご連絡ください。</strong>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">営業時間や住所を変更したい</div>
+      <div class="faq-a">
+        営業時間・住所はサイトのコードに直接書かれているため、管理画面からは変更できません。<br>
+        <strong>開発者にご連絡ください。</strong>すぐに対応します。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">ネットショップ（オンライン販売）を追加したい</div>
+      <div class="faq-a">
+        後から追加することが可能です。BASE・STORESなど無料で始められるサービスとの連携や、カート機能の追加に対応できます。<br>
+        ご希望の場合は<strong>開発者にご相談ください。</strong>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">ドメインの更新を忘れてしまった</div>
+      <div class="faq-a">
+        ドメインが失効するとサイトが表示されなくなります。自動更新をONにしていれば問題ありません。<br>
+        もし失効してしまった場合は、多くの場合30〜90日以内であれば復旧できます。すぐにドメイン購入サービスにお問い合わせください。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">ブログやお知らせ機能を追加したい</div>
+      <div class="faq-a">
+        後から追加することが可能です。<strong>開発者にご相談ください。</strong>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 8. 困ったときの連絡先 -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2>困ったときの連絡先</h2>
+    </div>
+
+    <p>以下の場合は開発者にご連絡ください。</p>
+
+    <table>
+      <tr><th>状況</th><th>対応目安</th></tr>
+      <tr><td>サイトが表示されない</td><td>できる限り早急に対応</td></tr>
+      <tr><td>管理画面にログインできない</td><td>当日〜翌営業日</td></tr>
+      <tr><td>営業時間・住所の変更</td><td>翌営業日</td></tr>
+      <tr><td>デザイン・機能の追加・変更</td><td>別途お見積もり</td></tr>
+      <tr><td>ドメイン設定のサポート</td><td>翌営業日</td></tr>
+    </table>
+
+    <div class="callout note">
+      <div class="callout-title">📋 連絡時にお知らせいただくと助かること</div>
+      <ul style="margin:0.5rem 0 0 1.2rem;">
+        <li>どのような操作をしたか</li>
+        <li>どのような画面が表示されているか（スクリーンショットがあると◎）</li>
+        <li>いつから発生しているか</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="guide-footer">
+  <p>fleur オーナーズガイド ／ 2026年5月 作成</p>
+  <p style="margin-top:0.3rem;">システム改修・機能追加が必要な場合は開発者までご連絡ください。</p>
+</div>
+
+</body>
+</html>
