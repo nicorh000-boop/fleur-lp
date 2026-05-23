@@ -9,6 +9,9 @@ public_folder: images
 
 locale: ja
 
+editor:
+  preview: false
+
 collections:
 
   # ── 高頻度：看板パン ──────────────────────────────
