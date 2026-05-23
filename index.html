@@ -225,7 +225,7 @@
 
     .concept-img {
       aspect-ratio: 4/5;
-      background: url('images/showcase-wide.jpg') center/cover no-repeat;
+      background: url('images/news1.jpg') center/cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -859,13 +859,7 @@
       その日のパンやイベント情報はSNSでチェック！フォローお待ちしています。
     </p>
   </div>
-  <div class="insta-grid">
-    <div class="insta-item"><img src="images/pan-sugar.jpg" alt="fleur パン" loading="lazy"></div>
-    <div class="insta-item"><img src="images/showcase2.jpg" alt="fleur ショーケース" loading="lazy"></div>
-    <div class="insta-item"><img src="images/pan-rack.jpg" alt="fleur 焼きたてパン" loading="lazy"></div>
-    <div class="insta-item"><img src="images/pan-almond.jpg" alt="fleur アーモンドパン" loading="lazy"></div>
-    <div class="insta-item"><img src="images/interior.jpg" alt="fleur 店内" loading="lazy"></div>
-  </div>
+  <div class="insta-grid" id="insta-grid"></div>
   <div class="sns-links" id="sns-links"></div>
 </section>
 
@@ -935,8 +929,18 @@
   <p class="footer-copy">© 2024 fleur All rights reserved.</p>
 </footer>
 
-<script src="data.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', function(user) {
+      if (!user) {
+        window.netlifyIdentity.on('login', function() {
+          document.location.href = '/admin/';
+        });
+      }
+    });
+  }
+
   var SNS_ICONS = {
     instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>',
     x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
@@ -944,10 +948,9 @@
     facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>'
   };
 
-  // Bread cards
-  (function () {
+  function renderBreads(items) {
     var grid = document.getElementById('bread-grid');
-    FLEUR_BREADS.forEach(function (bread, i) {
+    items.forEach(function(bread, i) {
       var card = document.createElement('div');
       card.className = 'bread-card';
       var imgStyle = i === 0
@@ -971,33 +974,63 @@
         '</div>';
       grid.appendChild(card);
     });
-  })();
+  }
 
-  // SNS helper
-  function renderSns(containerId, opts) {
+  function renderGallery(images) {
+    var grid = document.getElementById('insta-grid');
+    images.forEach(function(img) {
+      var item = document.createElement('div');
+      item.className = 'insta-item';
+      var el = document.createElement('img');
+      el.src = img.src;
+      el.alt = img.alt || 'fleur';
+      el.loading = 'lazy';
+      item.appendChild(el);
+      grid.appendChild(item);
+    });
+  }
+
+  function renderSns(containerId, sns, opts) {
     var el = document.getElementById(containerId);
-    if (!el || typeof FLEUR_SNS === 'undefined') return;
-    FLEUR_SNS.forEach(function (sns) {
-      if (!sns.active) return;
+    if (!el) return;
+    sns.forEach(function(s) {
+      if (!s.active) return;
       var a = document.createElement('a');
-      a.href = sns.url;
+      a.href = s.url;
       a.target = '_blank';
       a.rel = 'noopener';
       if (opts && opts.textOnly) {
         a.style.cssText = 'color:var(--brown-light);font-size:0.82rem;text-decoration:none;';
-        a.textContent = sns.name;
+        a.textContent = s.name;
       } else {
         a.className = 'sns-btn';
         if (opts && opts.color) a.style.color = opts.color;
-        a.innerHTML = (SNS_ICONS[sns.icon] || '') + '<span>' + sns.name + '</span>';
+        a.innerHTML = (SNS_ICONS[s.icon] || '') + '<span>' + s.name + '</span>';
       }
       el.appendChild(a);
     });
   }
 
-  renderSns('sns-links');
-  renderSns('footer-sns-links', { color: 'var(--brown-pale)' });
-  renderSns('access-sns-links', { textOnly: true });
+  Promise.all([
+    fetch('content/breads.json').then(function(r) { return r.json(); }),
+    fetch('content/gallery.json').then(function(r) { return r.json(); }),
+    fetch('content/site.json').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var breadsData  = results[0];
+    var galleryData = results[1];
+    var siteData    = results[2];
+
+    renderBreads(breadsData.items);
+    renderGallery(galleryData.images);
+    renderSns('sns-links',        siteData.sns);
+    renderSns('footer-sns-links', siteData.sns, { color: 'var(--brown-pale)' });
+    renderSns('access-sns-links', siteData.sns, { textOnly: true });
+
+    var conceptImg = document.querySelector('.concept-img');
+    if (conceptImg && siteData.concept_image) {
+      conceptImg.style.backgroundImage = "url('" + siteData.concept_image + "')";
+    }
+  });
 </script>
 </body>
 </html>

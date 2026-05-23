@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: gh-pages
+
+site_url: https://unique-paletas-fb45b6.netlify.app
+
+media_folder: images
+public_folder: images
+
+locale: ja
+
+collections:
+
+  # ── 高頻度：看板パン ──────────────────────────────
+  - name: breads
+    label: "🥐 看板パン"
+    description: "商品の写真・名前・説明・価格・バッジを変更できます。先頭の商品が大きく表示されます。"
+    files:
+      - name: breads_list
+        label: パン商品リスト
+        file: content/breads.json
+        fields:
+          - name: items
+            label: 商品一覧
+            widget: list
+            add_button_text: "＋ パンを追加"
+            fields:
+              - { name: name,  label: 商品名,                     widget: string }
+              - { name: desc,  label: 説明文,                     widget: text   }
+              - { name: price, label: "価格（例: ¥280）",         widget: string, required: false, hint: "空欄にすると非表示" }
+              - { name: image, label: 写真,                       widget: image  }
+              - name: badge
+                label: バッジ
+                widget: select
+                default: ""
+                options:
+                  - { label: "なし",      value: ""     }
+                  - { label: "★ おすすめ", value: "おすすめ" }
+                  - { label: "✦ 新商品",  value: "新商品"  }
+
+  # ── 中頻度：毎日更新中（ギャラリー写真） ─────────────
+  - name: gallery
+    label: "📸 毎日更新中（写真）"
+    description: "SNSセクションに並ぶ写真を差し替えられます。最大5枚まで。"
+    files:
+      - name: gallery_photos
+        label: ギャラリー写真
+        file: content/gallery.json
+        fields:
+          - name: images
+            label: "写真（最大5枚）"
+            widget: list
+            max: 5
+            fields:
+              - { name: src, label: 写真,            widget: image  }
+              - { name: alt, label: "説明（任意）", widget: string, required: false }
+
+  # ── 低頻度：SNS・コンセプト写真 ──────────────────────
+  - name: site
+    label: "⚙️ SNS・コンセプト写真"
+    description: "SNSアカウントのリンクやコンセプトセクションの写真を変更できます。"
+    files:
+      - name: site_info
+        label: サイト情報
+        file: content/site.json
+        fields:
+          - name: concept_image
+            label: コンセプトセクションの写真
+            widget: image
+          - name: sns
+            label: SNSアカウント
+            widget: list
+            fields:
+              - { name: name,   label: プラットフォーム名,     widget: string  }
+              - { name: handle, label: "ハンドル名（@〜）",   widget: string  }
+              - { name: url,    label: URL,                  widget: string  }
+              - name: icon
+                label: アイコン種類
+                widget: select
+                options:
+                  - { label: Instagram,        value: instagram }
+                  - { label: "X（旧Twitter）", value: x        }
+                  - { label: Threads,          value: threads   }
+                  - { label: Facebook,         value: facebook  }
+              - { name: active, label: 表示する, widget: boolean, default: true }

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>fleur｜SNS投稿フォーム</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f0;
+      --brown: #5c3d2e;
+      --brown-light: #8b6347;
+      --brown-pale: #d4b896;
+      --gold: #c9a96e;
+      --green: #4a5e3a;
+      --text: #2c1a0e;
+      --text-light: #6b4c35;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 2rem;
+    }
+
+    header {
+      background: var(--brown);
+      color: #fff;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    header .logo { font-size: 1.3rem; font-family: 'Georgia', serif; letter-spacing: 0.1em; }
+    header .sub  { font-size: 0.75rem; opacity: 0.8; }
+
+    .container { max-width: 540px; margin: 0 auto; padding: 1.2rem 1rem; }
+
+    /* ── タイプ選択 ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      color: var(--brown-light);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .type-btn {
+      border: 2px solid var(--brown-pale);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.7rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    .type-btn .icon { font-size: 1.4rem; display: block; margin-bottom: 0.2rem; }
+    .type-btn.active {
+      border-color: var(--brown);
+      background: var(--brown);
+      color: #fff;
+    }
+
+    /* ── 入力欄 ── */
+    .field { margin-bottom: 1.2rem; }
+
+    textarea, input[type="text"], input[type="time"] {
+      width: 100%;
+      border: 1.5px solid var(--brown-pale);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--text);
+      resize: none;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    textarea:focus, input:focus { border-color: var(--brown); }
+
+    .char-count {
+      text-align: right;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+    .char-count.warn { color: #c0392b; }
+
+    /* ── ハッシュタグ ── */
+    .tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      background: #fff;
+      border: 1.5px solid var(--brown-pale);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.7rem;
+    }
+    .tag {
+      background: var(--cream);
+      border: 1px solid var(--brown-pale);
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: all 0.12s;
+      user-select: none;
+    }
+    .tag.on { background: var(--brown); color: #fff; border-color: var(--brown); }
+
+    /* ── 生成ボタン ── */
+    .gen-btn {
+      width: 100%;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      margin: 0.4rem 0 1.6rem;
+      transition: opacity 0.15s;
+    }
+    .gen-btn:active { opacity: 0.8; }
+
+    /* ── 生成結果 ── */
+    .result-section { display: none; }
+    .result-section.show { display: block; }
+
+    .platform-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(44,26,14,0.08);
+    }
+    .platform-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    .platform-header svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+    .ph-instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .ph-x         { background: #000; }
+    .ph-threads   { background: #1c1c1c; }
+    .ph-facebook  { background: #1877f2; }
+
+    .platform-body { padding: 0.8rem 1rem; }
+    .platform-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text);
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 0.7rem 0.8rem;
+      min-height: 3em;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 0.7rem;
+      padding: 0.6rem;
+      border: 1.5px solid var(--brown-pale);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--brown);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-btn:active, .copy-btn.copied {
+      background: var(--brown);
+      color: #fff;
+      border-color: var(--brown);
+    }
+
+    /* ── 区切り ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--brown-pale);
+      margin: 1.4rem 0;
+    }
+
+    /* ── 時間選択（営業情報用） ── */
+    .time-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+    }
+    .time-row input { flex: 1; }
+
+    /* ── 補足オプション ── */
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+    .toggle {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--brown-pale);
+      border-radius: 999px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: left 0.2s;
+    }
+    .toggle input:checked + .toggle-track { background: var(--brown); }
+    .toggle input:checked + .toggle-track::after { left: 21px; }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="logo">fleur</div>
+    <div class="sub">SNS 投稿フォーム</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ① 投稿タイプ -->
+  <div class="field">
+    <div class="section-label">投稿タイプ</div>
+    <div class="type-grid">
+      <button class="type-btn active" data-type="open" onclick="selectType(this)">
+        <span class="icon">🏠</span>本日の営業
+      </button>
+      <button class="type-btn" data-type="item" onclick="selectType(this)">
+        <span class="icon">🥐</span>本日のイチ押し
+      </button>
+      <button class="type-btn" data-type="new" onclick="selectType(this)">
+        <span class="icon">✨</span>新商品・新メニュー
+      </button>
+      <button class="type-btn" data-type="info" onclick="selectType(this)">
+        <span class="icon">📣</span>お知らせ・イベント
+      </button>
+    </div>
+  </div>
+
+  <!-- ② タイプ別オプション -->
+  <div class="field" id="opt-open">
+    <div class="section-label">営業時間</div>
+    <div class="time-row">
+      <input type="time" id="open-from" value="09:00">
+      <span>〜</span>
+      <input type="time" id="open-to" value="17:00">
+    </div>
+    <div class="option-row" style="margin-top:0.7rem;">
+      <label class="toggle">
+        <input type="checkbox" id="chk-soldout">
+        <div class="toggle-track"></div>
+      </label>
+      売り切れ次第終了
+    </div>
+  </div>
+
+  <div class="field" id="opt-item" style="display:none">
+    <div class="section-label">商品名</div>
+    <input type="text" id="item-name" placeholder="例：自家製カレーパン" maxlength="40">
+  </div>
+
+  <!-- ③ 本文 -->
+  <div class="field">
+    <div class="section-label">ひとこと（本文）</div>
+    <textarea id="body-text" rows="4" maxlength="500"
+      placeholder="例：今日も焼きたてが並んでいます。ぜひ気軽に立ち寄ってください🍞"
+      oninput="updateCount(this,'body-count',500)"></textarea>
+    <div class="char-count" id="body-count">0 / 500</div>
+  </div>
+
+  <!-- ④ ハッシュタグ -->
+  <div class="field">
+    <div class="section-label">ハッシュタグ</div>
+    <div class="tag-wrap" id="tag-wrap">
+      <span class="tag on" onclick="toggleTag(this)">#fleur</span>
+      <span class="tag on" onclick="toggleTag(this)">#水戸パン屋</span>
+      <span class="tag on" onclick="toggleTag(this)">#双葉台</span>
+      <span class="tag" onclick="toggleTag(this)">#手作りパン</span>
+      <span class="tag" onclick="toggleTag(this)">#茨城グルメ</span>
+      <span class="tag" onclick="toggleTag(this)">#焼きたてパン</span>
+      <span class="tag" onclick="toggleTag(this)">#水戸グルメ</span>
+      <span class="tag" onclick="toggleTag(this)">#カレーパン</span>
+    </div>
+  </div>
+
+  <!-- ⑤ オプション -->
+  <div class="field">
+    <div class="section-label">追加情報</div>
+    <div class="option-row">
+      <label class="toggle">
+        <input type="checkbox" id="chk-addr" checked>
+        <div class="toggle-track"></div>
+      </label>
+      住所・アクセスを追記
+    </div>
+    <div class="option-row">
+      <label class="toggle">
+        <input type="checkbox" id="chk-insta">
+        <div class="toggle-track"></div>
+      </label>
+      Instagramフォロー誘導を追記
+    </div>
+  </div>
+
+  <!-- ⑥ 生成ボタン -->
+  <button class="gen-btn" onclick="generate()">✦ 投稿文を生成する</button>
+
+  <!-- ⑦ 結果 -->
+  <div class="result-section" id="result">
+    <div class="section-label" style="margin-bottom:0.8rem;">生成された投稿文</div>
+
+    <div class="platform-card">
+      <div class="platform-header ph-instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </div>
+      <div class="platform-body">
+        <div class="platform-text" id="txt-instagram"></div>
+        <button class="copy-btn" onclick="copyText('txt-instagram',this)">コピー</button>
+      </div>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-header ph-x">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.857L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X（旧Twitter）
+      </div>
+      <div class="platform-body">
+        <div class="platform-text" id="txt-x"></div>
+        <div class="char-count" id="count-x" style="margin-top:0.3rem;"></div>
+        <button class="copy-btn" onclick="copyText('txt-x',this)">コピー</button>
+      </div>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-header ph-threads">
+        <svg viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.068v-.036c0-3.518.85-6.372 2.495-8.423C5.845 1.205 8.598.024 12.179 0h.007c2.557.017 5.518.644 7.894 3.657l.05.066-1.83 1.446-.051-.066C16.3 2.846 14.109 2.2 12.186 2.2h-.007c-2.962.02-5.116.951-6.409 2.769-1.155 1.636-1.74 4.044-1.74 7.155v.036c0 3.112.585 5.52 1.74 7.156 1.293 1.817 3.447 2.748 6.409 2.768h.007c2.498-.016 4.084-.633 5.223-2.052.847-1.058 1.284-2.46 1.337-4.282-.904.18-1.856.271-2.836.271-4.432 0-7.384-2.303-7.384-6.134 0-3.628 2.952-6.196 7.021-6.196 4.4 0 7.287 2.822 7.287 7.143 0 .203-.006.405-.018.604-.15 3.08-.936 5.45-2.335 7.055-1.558 1.786-3.837 2.7-6.77 2.718zm.628-10.393c1.867 0 3.398-.36 4.553-.907-.112-2.698-1.628-4.2-4.037-4.2-2.308 0-3.866 1.37-3.866 3.248 0 1.966 1.443 3.072 3.35 3.072v-.213z"/></svg>
+        Threads
+      </div>
+      <div class="platform-body">
+        <div class="platform-text" id="txt-threads"></div>
+        <button class="copy-btn" onclick="copyText('txt-threads',this)">コピー</button>
+      </div>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-header ph-facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </div>
+      <div class="platform-body">
+        <div class="platform-text" id="txt-facebook"></div>
+        <button class="copy-btn" onclick="copyText('txt-facebook',this)">コピー</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var currentType = 'open';
+
+  function selectType(btn) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentType = btn.dataset.type;
+
+    document.getElementById('opt-open').style.display = currentType === 'open' ? '' : 'none';
+    document.getElementById('opt-item').style.display = currentType === 'item' ? '' : 'none';
+  }
+
+  function toggleTag(el) {
+    el.classList.toggle('on');
+  }
+
+  function updateCount(el, countId, max) {
+    var c = el.value.length;
+    var span = document.getElementById(countId);
+    span.textContent = c + ' / ' + max;
+    span.classList.toggle('warn', c > max * 0.9);
+  }
+
+  function getTags() {
+    return Array.from(document.querySelectorAll('.tag.on'))
+      .map(t => t.textContent.trim()).join(' ');
+  }
+
+  function getAddr() {
+    return '📍 茨城県水戸市双葉台2-12-3 オハナコート1F\n🅿️ 6番駐車場';
+  }
+
+  function buildBase() {
+    var body = document.getElementById('body-text').value.trim();
+    var tags = getTags();
+
+    var header = '';
+    if (currentType === 'open') {
+      var from = document.getElementById('open-from').value;
+      var to   = document.getElementById('open-to').value;
+      var soldout = document.getElementById('chk-soldout').checked;
+      header = '🏠【本日の営業】\n' +
+               '⏰ ' + from + '〜' + to +
+               (soldout ? '（売り切れ次第終了）' : '') + '\n\n';
+    } else if (currentType === 'item') {
+      var name = document.getElementById('item-name').value.trim();
+      header = '🥐【本日のイチ押し】\n' + (name ? '✦ ' + name + '\n\n' : '\n');
+    } else if (currentType === 'new') {
+      header = '✨【新商品・新メニュー】\n\n';
+    } else {
+      header = '📣【お知らせ】\n\n';
+    }
+
+    var addr   = document.getElementById('chk-addr').checked ? '\n\n' + getAddr() : '';
+    var insta  = document.getElementById('chk-insta').checked ? '\n\n▶ Instagramで最新情報を発信中！\n@fleur_mito' : '';
+
+    return { header: header, body: body, tags: tags, addr: addr, insta: insta };
+  }
+
+  function generate() {
+    var d = buildBase();
+
+    // Instagram: フル（ハッシュタグ・アドレス込み）
+    var instaText = d.header + d.body + d.addr + d.insta + (d.tags ? '\n\n' + d.tags : '');
+
+    // X: 140字目安、短め。ハッシュタグは主要2〜3個
+    var xTags = getTags().split(' ').slice(0,3).join(' ');
+    var xText = d.header + d.body + (xTags ? '\n\n' + xTags : '');
+
+    // Threads: Instagramに近いが長文OK
+    var threadsText = d.header + d.body + d.addr + (d.tags ? '\n\n' + d.tags : '');
+
+    // Facebook: 住所・アクセス詳細込み、ハッシュタグなし
+    var fbText = d.header + d.body + d.addr;
+
+    document.getElementById('txt-instagram').textContent = instaText.trim();
+    document.getElementById('txt-x').textContent         = xText.trim();
+    document.getElementById('txt-threads').textContent   = threadsText.trim();
+    document.getElementById('txt-facebook').textContent  = fbText.trim();
+
+    var xLen = xText.trim().length;
+    var xCount = document.getElementById('count-x');
+    xCount.textContent = xLen + ' 文字' + (xLen > 140 ? '（⚠️ 140字超 — 短くしてください）' : '');
+    xCount.classList.toggle('warn', xLen > 140);
+
+    document.getElementById('result').classList.add('show');
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyText(id, btn) {
+    var text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'コピーしました ✔';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

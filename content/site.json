@@ -1,0 +1,9 @@
+{
+  "concept_image": "images/news1.jpg",
+  "sns": [
+    { "name": "Instagram", "handle": "@fleur_mito", "url": "https://www.instagram.com/fleur_mito", "icon": "instagram", "active": true },
+    { "name": "X",         "handle": "@fleur_mito", "url": "https://x.com/fleur_mito",              "icon": "x",         "active": true },
+    { "name": "Threads",   "handle": "@fleur_mito", "url": "https://www.threads.net/@fleur_mito",   "icon": "threads",   "active": true },
+    { "name": "Facebook",  "handle": "fleur.boulangerie", "url": "https://www.facebook.com/fleur.boulangerie", "icon": "facebook", "active": true }
+  ]
+}

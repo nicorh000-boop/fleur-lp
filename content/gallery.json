@@ -1,0 +1,9 @@
+{
+  "images": [
+    { "src": "images/pan-sugar.jpg",    "alt": "fleur パン" },
+    { "src": "images/showcase2.jpg",    "alt": "fleur ショーケース" },
+    { "src": "images/pan-rack.jpg",     "alt": "fleur 焼きたてパン" },
+    { "src": "images/pan-almond.jpg",   "alt": "fleur アーモンドパン" },
+    { "src": "images/interior.jpg",     "alt": "fleur 店内" }
+  ]
+}
