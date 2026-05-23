@@ -8,9 +8,45 @@
   <meta property="og:title" content="fleur（フルール）| 水戸市双葉台のパン屋">
   <meta property="og:description" content="生地も具材もすべて手作り。口溶けにこだわった約90種のパン。茨城県水戸市双葉台オハナコート。">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://unique-paletas-fb45b6.netlify.app/">
+  <meta property="og:image" content="https://unique-paletas-fb45b6.netlify.app/images/exterior2.jpg">
+  <meta property="og:locale" content="ja_JP">
+  <link rel="canonical" href="https://unique-paletas-fb45b6.netlify.app/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": "fleur（フルール）",
+    "alternateName": "フルール",
+    "description": "茨城県水戸市双葉台のパン屋。オーナーが一から手作りする約90種のこだわりパン。自家製カレーパン・タルティーヌなど。",
+    "url": "https://unique-paletas-fb45b6.netlify.app",
+    "image": "https://unique-paletas-fb45b6.netlify.app/images/exterior2.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "双葉台2-1-1 オハナコート1階",
+      "addressLocality": "水戸市",
+      "addressRegion": "茨城県",
+      "addressCountry": "JP"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
+        "opens": "10:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/fleur_mito",
+      "https://x.com/fleur_mito",
+      "https://www.threads.net/@fleur_mito",
+      "https://www.facebook.com/fleur.boulangerie"
+    ]
+  }
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -926,7 +962,7 @@
   </div>
   <div class="footer-tagline">BOULANGERIE — MITO, IBARAKI</div>
   <div class="footer-sns" id="footer-sns-links"></div>
-  <p class="footer-copy">© 2024 fleur All rights reserved.</p>
+  <p class="footer-copy" id="footer-copy"></p>
 </footer>
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -948,30 +984,58 @@
     facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>'
   };
 
+  function safeImgUrl(url) {
+    return (url || '').replace(/["\\]/g, function(c) { return encodeURIComponent(c); });
+  }
+
   function renderBreads(items) {
     var grid = document.getElementById('bread-grid');
     items.forEach(function(bread, i) {
       var card = document.createElement('div');
       card.className = 'bread-card';
-      var imgStyle = i === 0
-        ? "height:100%;min-height:450px;background:url('" + bread.image + "') center/cover no-repeat;"
-        : "background:url('" + bread.image + "') center/cover no-repeat;";
-      var badgeHtml = '';
+
       if (bread.badge === 'おすすめ') {
-        badgeHtml = '<div class="bread-badge badge-osusume">★ おすすめ</div>';
+        var badge = document.createElement('div');
+        badge.className = 'bread-badge badge-osusume';
+        badge.textContent = '★ おすすめ';
+        card.appendChild(badge);
       } else if (bread.badge === '新商品') {
-        badgeHtml = '<div class="bread-badge badge-new">✦ 新商品</div>';
+        var badge = document.createElement('div');
+        badge.className = 'bread-badge badge-new';
+        badge.textContent = '✦ 新商品';
+        card.appendChild(badge);
       }
-      var priceHtml = bread.price ? '<div class="bread-card-price">' + bread.price + '</div>' : '';
-      var nameHtml = bread.name.replace(/\n/g, '<br>');
-      card.innerHTML =
-        badgeHtml +
-        '<div class="bread-card-img" style="' + imgStyle + '"></div>' +
-        '<div class="bread-card-overlay">' +
-          '<div class="bread-card-name">' + nameHtml + '</div>' +
-          '<div class="bread-card-desc">' + bread.desc + '</div>' +
-          priceHtml +
-        '</div>';
+
+      var imgEl = document.createElement('div');
+      imgEl.className = 'bread-card-img';
+      if (i === 0) { imgEl.style.cssText = 'height:100%;min-height:450px;'; }
+      imgEl.style.setProperty('background', 'url("' + safeImgUrl(bread.image) + '") center/cover no-repeat');
+      card.appendChild(imgEl);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'bread-card-overlay';
+
+      var nameEl = document.createElement('div');
+      nameEl.className = 'bread-card-name';
+      (bread.name || '').split('\n').forEach(function(line, j) {
+        if (j > 0) nameEl.appendChild(document.createElement('br'));
+        nameEl.appendChild(document.createTextNode(line));
+      });
+      overlay.appendChild(nameEl);
+
+      var descEl = document.createElement('div');
+      descEl.className = 'bread-card-desc';
+      descEl.textContent = bread.desc || '';
+      overlay.appendChild(descEl);
+
+      if (bread.price) {
+        var priceEl = document.createElement('div');
+        priceEl.className = 'bread-card-price';
+        priceEl.textContent = bread.price;
+        overlay.appendChild(priceEl);
+      }
+
+      card.appendChild(overlay);
       grid.appendChild(card);
     });
   }
@@ -1025,10 +1089,11 @@
     renderSns('sns-links',        siteData.sns);
     renderSns('footer-sns-links', siteData.sns, { color: 'var(--brown-pale)' });
     renderSns('access-sns-links', siteData.sns, { textOnly: true });
+    document.getElementById('footer-copy').textContent = '© ' + new Date().getFullYear() + ' fleur All rights reserved.';
 
     var conceptImg = document.querySelector('.concept-img');
     if (conceptImg && siteData.concept_image) {
-      conceptImg.style.backgroundImage = "url('" + siteData.concept_image + "')";
+      conceptImg.style.setProperty('background-image', 'url("' + safeImgUrl(siteData.concept_image) + '")');
     }
   });
 </script>

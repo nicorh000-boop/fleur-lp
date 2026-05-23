@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Allow: /
+
+Sitemap: https://unique-paletas-fb45b6.netlify.app/sitemap.xml
