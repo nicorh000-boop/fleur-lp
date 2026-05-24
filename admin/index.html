@@ -5,8 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>fleur | サイト管理</title>
   <style>
+    /* 横スクロール防止 */
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    /* Decap CMS ルート */
+    #nc-root {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
     /* モバイル向け調整 */
     @media (max-width: 768px) {
+      /* CMS 内部コンテナの横幅を画面内に収める */
+      [class*="AppHeader"],
+      [class*="AppBody"],
+      [class*="Collection"],
+      [class*="Editor"],
+      [class*="Toolbar"],
+      [class*="sidebar"],
+      [class*="Nav"] {
+        min-width: 0 !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+      }
       /* サイドバーのトグルボタンを大きく */
       [class*="AppHeader"] button,
       [class*="sidebar"] button {
